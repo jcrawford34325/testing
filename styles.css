@@ -2,7 +2,8 @@ body {
   background-color: #e6ffff;
   color: #404040;
   font-family: verdana, sans-serif;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   
 }
 h1 {
