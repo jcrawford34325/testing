@@ -3,6 +3,10 @@ body {
   color: #404040;
   font-family: verdana, sans-serif;
 }
+padElement {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 h1 {
   color: #ccccff;
   font-size: 14px;
@@ -35,7 +39,4 @@ li {
 p {
   font-family: verdana, sans-serif;
   font-size: 12px;
-}
-padElement {
-  padding-top: 20px;
 }
