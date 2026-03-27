@@ -1,0 +1,38 @@
+body {
+  background-color: #e6ffff;
+  color: #404040;
+  font-family: verdana, sans-serif;
+}
+h1 {
+  color: #ccccff;
+  font-size: 14px;
+  font-family: Georgia, Garamond, serif;
+}
+h2 {
+  color: #b3ccff;
+  font-size: 14px;
+}
+
+h3 {
+  color: #ffccff;
+  font-size: 14px;
+}
+h4 {
+  color: #ccccff;
+  font-size: 16px;
+  font-family: Georgia, Garamond, serif;
+}
+a {
+  text-decoration: none;
+  color: #ccd9ff;
+  font-family: Lucida Console, monospace;
+  font-size: 12 px;
+}
+
+li {
+  font-size: 12px;
+}
+p {
+  font-family: verdana, sans-serif;
+  font-size: 12px;
+}
