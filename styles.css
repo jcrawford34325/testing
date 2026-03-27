@@ -2,9 +2,6 @@ body {
   background-color: #e6ffff;
   color: #404040;
   font-family: verdana, sans-serif;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  
 }
 h1 {
   color: #ccccff;
@@ -38,8 +35,4 @@ li {
 p {
   font-family: verdana, sans-serif;
   font-size: 12px;
-}
-div {
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
