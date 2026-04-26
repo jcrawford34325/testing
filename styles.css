@@ -42,3 +42,58 @@ p {
   font-family: verdana, sans-serif;
   font-size: 12px;
 }
+h1 span {
+        color: #ccd9ff;
+        display: block;
+      }
+
+      .timer {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 3rem;
+      }
+
+      .unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .value {
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 900;
+        color: #ffffff;
+        min-width: 2ch;
+        line-height: 1;
+        text-shadow: 0 0 30px rgba(255,255,255,0.15);
+      }
+
+      .label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #666;
+      }
+
+      .divider {
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 900;
+        color: #b3ccff;
+        align-self: flex-start;
+        margin-top: 0.1em;
+      }
+
+      .subtitle {
+        font-size: 0.85rem;
+        color: #b3ccff;
+        letter-spacing: 0.1em;
+      }
+
+      .cybertruck {
+        font-size: clamp(4rem, 15vw, 8rem);
+        margin-bottom: 1rem;
+        filter: grayscale(1) opacity(0.3);
+      }
