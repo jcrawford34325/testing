@@ -3,6 +3,13 @@ body {
   background-color: #e6ffff;
   color: #404040;
   font-family: verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
 }
 .padElement {
   padding-top: 15px;
