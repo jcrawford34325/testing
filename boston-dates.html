@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boston Date Night Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #0f1117;
+      color: #e8e0d5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid #2a2a4a;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+      color: #f0c070;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      color: #a0a8c0;
+      font-size: 1rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .filter-group label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7080a0;
+    }
+
+    .filter-group select {
+      background: #1c2033;
+      color: #e8e0d5;
+      border: 1px solid #2e3550;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      outline: none;
+      min-width: 150px;
+    }
+
+    .filter-group select:focus {
+      border-color: #f0c070;
+    }
+
+    .generate-btn {
+      margin: 0.5rem 1rem 1.5rem;
+      padding: 0.85rem 2.5rem;
+      font-size: 1.1rem;
+      font-family: inherit;
+      background: linear-gradient(135deg, #c84b11, #e05c20);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: transform 0.12s, box-shadow 0.12s;
+      box-shadow: 0 4px 18px rgba(200, 75, 17, 0.35);
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(200, 75, 17, 0.5);
+    }
+
+    .generate-btn:active {
+      transform: translateY(0);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      padding: 0 1rem 3rem;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .card {
+      background: #161b2e;
+      border: 1px solid #252a40;
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.15s, border-color 0.15s;
+      animation: fadeIn 0.35s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #f0c07060;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-emoji { font-size: 2rem; }
+
+    .card-title {
+      font-size: 1.15rem;
+      color: #f0c070;
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #a0a8b8;
+      line-height: 1.55;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-cat  { background: #1e2d4a; color: #7ab0e0; }
+    .badge-cost { background: #2a1e10; color: #e0a050; }
+    .badge-vibe { background: #1e2a1e; color: #70c080; }
+    .badge-season { background: #2a1e2a; color: #c080d0; }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #505870;
+      font-size: 1rem;
+      padding: 3rem;
+    }
+
+    footer {
+      color: #40485a;
+      font-size: 0.78rem;
+      padding: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>&#10084;&#65039; Boston Date Night Generator</h1>
+  <p>Discover your next perfect outing in Greater Boston</p>
+</header>
+
+<div class="filters">
+  <div class="filter-group">
+    <label>Category</label>
+    <select id="f-cat">
+      <option value="any">Any category</option>
+      <option value="outdoor">Outdoor</option>
+      <option value="food">Food &amp; Drink</option>
+      <option value="arts">Arts &amp; Culture</option>
+      <option value="entertainment">Entertainment</option>
+      <option value="active">Active</option>
+      <option value="relaxed">Relaxed</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>Budget</label>
+    <select id="f-cost">
+      <option value="any">Any budget</option>
+      <option value="free">Free</option>
+      <option value="$">$ (Under $30)</option>
+      <option value="$$">$$ ($30–$80)</option>
+      <option value="$$$">$$$ (Splurge)</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>Vibe</label>
+    <select id="f-vibe">
+      <option value="any">Any vibe</option>
+      <option value="romantic">Romantic</option>
+      <option value="adventurous">Adventurous</option>
+      <option value="cozy">Cozy</option>
+      <option value="social">Social</option>
+      <option value="quirky">Quirky</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>Season</label>
+    <select id="f-season">
+      <option value="any">Any season</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="fall">Fall</option>
+      <option value="winter">Winter</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>How many ideas</label>
+    <select id="f-count">
+      <option value="3">3 ideas</option>
+      <option value="6" selected>6 ideas</option>
+      <option value="9">9 ideas</option>
+    </select>
+  </div>
+</div>
+
+<button class="generate-btn" onclick="generate()">Generate Date Ideas &#10024;</button>
+
+<div class="card-grid" id="results">
+  <div class="empty-state">Set your filters and hit Generate to get started!</div>
+</div>
+
+<footer>Greater Boston &bull; Cambridge &bull; Somerville &bull; Brookline &bull; Salem &bull; Quincy</footer>
+
+<script>
+const IDEAS = [
+  // OUTDOOR
+  { title: "Sunset at Spectacle Island", emoji: "🌅", desc: "Take the ferry from Long Wharf to this Boston Harbor island for sweeping city skyline views, sandy beaches, and trails. Pack a picnic and catch the golden hour together.", cat: "outdoor", cost: "$", vibe: "romantic", season: "summer" },
+  { title: "Arnold Arboretum in Bloom", emoji: "🌸", desc: "Wander 281 acres of flowering trees and winding paths in Jamaica Plain. Lilac Sunday in May is legendary — thousands of blooms and a festive crowd.", cat: "outdoor", cost: "free", vibe: "romantic", season: "spring" },
+  { title: "Blue Hills Reservation Hike", emoji: "⛰️", desc: "Lace up and climb Great Blue Hill for a panoramic view of Boston that most city dwellers never see. End at the Blue Hills Brewery taproom nearby.", cat: "outdoor", cost: "free", vibe: "adventurous", season: "fall" },
+  { title: "Kayaking the Charles River", emoji: "🛶", desc: "Rent a tandem kayak from Charles River Canoe & Kayak in Allston or Newton. Paddle under the bridges with the skyline as your backdrop.", cat: "outdoor", cost: "$", vibe: "adventurous", season: "summer" },
+  { title: "Salem Witch Trail Walk", emoji: "🧙", desc: "Stroll the Salem Heritage Trail, visit the Peabody Essex Museum, and end the evening with dinner on Pickering Wharf. Spooky and charming year-round.", cat: "outdoor", cost: "$", vibe: "quirky", season: "fall" },
+  { title: "Esplanade Bike Ride", emoji: "🚴", desc: "Grab Bluebikes and cruise the Esplanade along the Charles. Cross into Cambridge, loop back over the bridges, and grab an ice cream on Newbury Street.", cat: "outdoor", cost: "$", vibe: "adventurous", season: "summer" },
+  { title: "Crane Beach Sunset", emoji: "🏖️", desc: "Drive to Ipswich for one of New England's best beaches. Wide dunes, calm waves, and a boardwalk — gorgeous in late summer and completely different in the off-season.", cat: "outdoor", cost: "$", vibe: "romantic", season: "summer" },
+  { title: "Jamaica Pond Rowboat", emoji: "🚣", desc: "Rent a rowboat at Jamaica Pond and drift across this emerald glacial kettle pond surrounded by parkland. Peaceful, free from traffic, and wonderfully old-fashioned.", cat: "outdoor", cost: "$", vibe: "romantic", season: "spring" },
+
+  // FOOD & DRINK
+  { title: "Tasting Menu at Menton", emoji: "🍽️", desc: "Barbara Lynch's legendary Fort Point restaurant offers multi-course French-Italian tasting menus that feel like an event. Book ahead — this is a special occasion splurge.", cat: "food", cost: "$$$", vibe: "romantic", season: "any" },
+  { title: "North End Pastry Crawl", emoji: "🥐", desc: "Take on the great cannoli debate: Mike's Pastry vs. Modern Pastry. Grab espresso at Caffe Vittoria, then wander the cobblestone streets of Boston's Little Italy.", cat: "food", cost: "$", vibe: "cozy", season: "any" },
+  { title: "Cocktail Tour in the Seaport", emoji: "🍹", desc: "The Seaport's bar scene is dense — start at Lookout Rooftop Bar for harbor views, then work through Committee, Row 34, and end at The Envoy's rooftop.", cat: "food", cost: "$$", vibe: "social", season: "summer" },
+  { title: "Dim Sum in Chinatown", emoji: "🥟", desc: "Weekend brunch at China Pearl or Hei La Moon is a lively, cart-service feast. Arrive early for the best selection and expect a cheerful crowd.", cat: "food", cost: "$", vibe: "social", season: "any" },
+  { title: "South End Restaurant Week", emoji: "🍷", desc: "The South End is Boston's restaurant row. Stroll Tremont Street, split a bottle at Coppa or Toro, and end with dessert at Myers + Chang.", cat: "food", cost: "$$", vibe: "romantic", season: "any" },
+  { title: "Winter Warmers at Trillium Fort Point", emoji: "🍺", desc: "Settle into Trillium's Fort Point taproom with locally crafted ales and a killer view of the channel. The food menu holds its own too.", cat: "food", cost: "$", vibe: "cozy", season: "winter" },
+  { title: "Cambridge Café Hop", emoji: "☕", desc: "Hit Gracenote Coffee, Dwelltime, and Broadsheet in one afternoon. Each has its own aesthetic and single-origin espresso worth arguing about.", cat: "food", cost: "$", vibe: "cozy", season: "any" },
+  { title: "Legal Sea Foods Oyster Happy Hour", emoji: "🦪", desc: "Oysters, chowder, and cold Sauvignons at the bar — Legal's happy hour is a Boston institution and an easy, low-key first date.", cat: "food", cost: "$", vibe: "romantic", season: "any" },
+
+  // ARTS & CULTURE
+  { title: "MFA First Fridays", emoji: "🎨", desc: "The Museum of Fine Arts stays open late on Fridays with a cocktail bar, live music, and full gallery access. The Egyptian collection at night hits differently.", cat: "arts", cost: "$$", vibe: "romantic", season: "any" },
+  { title: "ICA Watershed (Summer)", emoji: "🖼️", desc: "The Institute of Contemporary Art's seasonal Watershed space in East Boston hosts large-scale immersive installations in a stunning industrial building. Free with ICA membership.", cat: "arts", cost: "$$", vibe: "quirky", season: "summer" },
+  { title: "Boston Symphony Orchestra", emoji: "🎻", desc: "Symphony Hall on Mass Ave is one of the world's finest acoustically. Rush tickets are available same-day for under $30 if you're willing to queue.", cat: "arts", cost: "$$", vibe: "romantic", season: "winter" },
+  { title: "ArtsEmerson at the Paramount", emoji: "🎭", desc: "Catch a boundary-pushing theater or dance performance at the Paramount Center in the Theater District. Check their season — programming is inventive and international.", cat: "arts", cost: "$$", vibe: "quirky", season: "any" },
+  { title: "Harvard Art Museums", emoji: "🏛️", desc: "Three museums under one stunning Renzo Piano skylit roof: Fogg, Busch-Reisinger, Germanic collection. Free for Harvard affiliates; affordable for everyone.", cat: "arts", cost: "$", vibe: "cozy", season: "any" },
+  { title: "Peabody Essex Museum (Salem)", emoji: "✨", desc: "PEM is world-class and dramatically underrated. The Yin Yu Tang Chinese house alone is worth the trip. Pair with lunch in Salem's vibrant food scene.", cat: "arts", cost: "$$", vibe: "quirky", season: "any" },
+  { title: "Boston Lyric Opera", emoji: "🎼", desc: "BLO brings opera to unexpected venues around the city — warehouses, outdoor stages, concert halls. Check their season for intimate, powerful productions.", cat: "arts", cost: "$$", vibe: "romantic", season: "any" },
+  { title: "Greenway Open Market", emoji: "🎪", desc: "The Rose Kennedy Greenway hosts artisan markets on weekends. Browse handcrafted goods, grab a bite from a food truck, and catch live performers.", cat: "arts", cost: "free", vibe: "social", season: "summer" },
+
+  // ENTERTAINMENT
+  { title: "Red Sox Night Game at Fenway", emoji: "⚾", desc: "There's nowhere quite like Fenway at night. Grab bleacher seats, share a Fenway Frank, and sing along to 'Sweet Caroline' in the 8th inning.", cat: "entertainment", cost: "$$", vibe: "social", season: "summer" },
+  { title: "Escape Room on Tremont", emoji: "🔐", desc: "Boston has several excellent escape room venues — Escape the Room Boston and Hour to Midnight are crowd favorites. Great for testing how well you problem-solve together.", cat: "entertainment", cost: "$", vibe: "adventurous", season: "any" },
+  { title: "Improv Asylum in the North End", emoji: "😂", desc: "One of Boston's oldest comedy institutions. The late-night 'Unscripted' shows are gloriously chaotic. Date tip: sit close to the stage.", cat: "entertainment", cost: "$", vibe: "social", season: "any" },
+  { title: "Bowling at Kings Back Bay", emoji: "🎳", desc: "Kings is a retro-swanky bowling alley with a full restaurant and bar. Reserve a lane, order truffle fries, and don't take the score too seriously.", cat: "entertainment", cost: "$$", vibe: "social", season: "any" },
+  { title: "Rooftop Movie at the Revere Hotel", emoji: "🎬", desc: "The Revere Hotel's rooftop shows outdoor films in the summer. Skyline views, cocktails in hand, classic movies — simple and memorable.", cat: "entertainment", cost: "$$", vibe: "romantic", season: "summer" },
+  { title: "Trivia Night at a Cambridge Pub", emoji: "🧩", desc: "Cambridge's pub scene runs sharp trivia nights mid-week — try The Asgard or Charlie's Kitchen. It's a low-key way to learn how your date thinks under pressure.", cat: "entertainment", cost: "$", vibe: "quirky", season: "any" },
+  { title: "Celtics Game at the Garden", emoji: "🏀", desc: "TD Garden buzzes on game nights. Grab upper-deck seats for an affordable view, visit the Beer Garden on the concourse, and absorb the electric atmosphere.", cat: "entertainment", cost: "$$", vibe: "social", season: "winter" },
+
+  // ACTIVE
+  { title: "Ice Skating on the Frog Pond", emoji: "⛸️", desc: "Boston Common's Frog Pond becomes a magical skating rink from November through March. Skate rentals available on-site. End with hot chocolate nearby.", cat: "active", cost: "$", vibe: "romantic", season: "winter" },
+  { title: "Rock Climbing at Central Rock Gym", emoji: "🧗", desc: "Central Rock's Watertown location is a great first-climbing-date spot. Instructors walk beginners through the basics — it's a natural excuse to be close.", cat: "active", cost: "$$", vibe: "adventurous", season: "any" },
+  { title: "Ping Pong at Bounce Sporting Club", emoji: "🏓", desc: "Reserve a table at this Seaport ping-pong bar — competitive play with craft cocktails. More fun than a typical bar, and someone will inevitably get very into it.", cat: "active", cost: "$", vibe: "social", season: "any" },
+  { title: "Paddleboarding at Millennium Park", emoji: "🏄", desc: "SUP rentals are available at Millennium Park in West Roxbury. Glide across the Charles River backwaters; it's calmer and more scenic than the main river.", cat: "active", cost: "$", vibe: "adventurous", season: "summer" },
+  { title: "Archery at Aero Archery (Newton)", emoji: "🏹", desc: "Take an intro archery lesson together — focus, frustration, and surprising satisfaction when you finally hit the target. A memorable, unusual first date.", cat: "active", cost: "$$", vibe: "quirky", season: "any" },
+
+  // RELAXED
+  { title: "Bookshop Date at Harvard Book Store", emoji: "📚", desc: "Wander independently, then reconvene to show each other what you picked up. Grab used paperbacks from the bargain basement and compare tastes over coffee.", cat: "relaxed", cost: "$", vibe: "cozy", season: "any" },
+  { title: "Picnic on the Esplanade", emoji: "🧺", desc: "Pack a blanket, cheese, bread, and cold wine and claim a spot on the Esplanade. Watch the sailboats drift by on the Charles. Timeless and free.", cat: "relaxed", cost: "free", vibe: "romantic", season: "summer" },
+  { title: "Sunday at the Isabella Stewart Gardner Museum", emoji: "🌿", desc: "A Venetian palazzo transplanted to the Fenway neighborhood. The central courtyard blooms year-round. Hushed, gorgeous, and ideal for slow wandering.", cat: "relaxed", cost: "$$", vibe: "romantic", season: "any" },
+  { title: "Board Game Café at Pandemonium Books", emoji: "🎲", desc: "This Central Square shop hosts board game nights with an enormous library. Nerd-friendly and wonderfully low-pressure — great for dates that prefer something structured.", cat: "relaxed", cost: "$", vibe: "cozy", season: "any" },
+  { title: "Sunday Farmers Market in Copley", emoji: "🥕", desc: "Wander the Copley Square farmers market together on a Tuesday or Friday morning. Sample honey, pick out flowers, debate sourdough loaves. Unexpectedly charming.", cat: "relaxed", cost: "free", vibe: "cozy", season: "spring" },
+  { title: "Spa Day at G2O Spa (Brookline)", emoji: "🧘", desc: "Book a couples massage or split a spa package at this well-regarded Brookline retreat. Splurge that actually feels restorative rather than just expensive.", cat: "relaxed", cost: "$$$", vibe: "romantic", season: "any" },
+  { title: "Stargazing at Breakheart Reservation", emoji: "🌌", desc: "Drive to Saugus for one of the darkest skies within 20 miles of Boston. Bring a blanket, download Star Walk, and see how many constellations you know.", cat: "relaxed", cost: "free", vibe: "romantic", season: "summer" },
+  { title: "Cooking Class at The Cook's Warehouse", emoji: "👨‍🍳", desc: "Take a hands-on cooking class together — pasta nights and sushi sessions are perennially popular. You'll have something to talk about over the meal you made.", cat: "relaxed", cost: "$$", vibe: "cozy", season: "any" },
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function generate() {
+  const cat    = document.getElementById('f-cat').value;
+  const cost   = document.getElementById('f-cost').value;
+  const vibe   = document.getElementById('f-vibe').value;
+  const season = document.getElementById('f-season').value;
+  const count  = parseInt(document.getElementById('f-count').value);
+
+  let pool = IDEAS.filter(idea => {
+    if (cat    !== 'any' && idea.cat    !== cat)    return false;
+    if (cost   !== 'any' && idea.cost   !== cost)   return false;
+    if (vibe   !== 'any' && idea.vibe   !== vibe)   return false;
+    if (season !== 'any' && idea.season !== 'any' && idea.season !== season) return false;
+    return true;
+  });
+
+  pool = shuffle(pool).slice(0, count);
+
+  const container = document.getElementById('results');
+  container.innerHTML = '';
+
+  if (pool.length === 0) {
+    container.innerHTML = '<div class="empty-state">No ideas match those filters — try loosening one!</div>';
+    return;
+  }
+
+  pool.forEach((idea, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.animationDelay = `${i * 0.06}s`;
+    card.innerHTML = `
+      <div class="card-emoji">${idea.emoji}</div>
+      <div class="card-title">${idea.title}</div>
+      <div class="card-desc">${idea.desc}</div>
+      <div class="card-meta">
+        <span class="badge badge-cat">${idea.cat}</span>
+        <span class="badge badge-cost">${idea.cost === 'free' ? 'Free' : idea.cost}</span>
+        <span class="badge badge-vibe">${idea.vibe}</span>
+        ${idea.season !== 'any' ? `<span class="badge badge-season">${idea.season}</span>` : ''}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+</script>
+</body>
+</html>
