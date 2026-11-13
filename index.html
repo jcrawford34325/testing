@@ -1,4 +1,3 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,112 +5,111 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Exploring Web Design</title>
+    <title>Jamie Crawford | Professional Profile</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="professional.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg site-nav">
+      <div class="container">
+        <a class="navbar-brand" href="#top">
+          <img src="logo.jpg" alt="Jamie Crawford" class="brand-logo" />
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="#perspective">Perspective</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a class="nav-link" href="#interests">Areas of Interest</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <h1 class="padElement">To Do</h1>
-    <p class="padElement">Outlook for planning, structure by weekly and long-term?</p>
-    <ul>
-      <li>
-        write travel lists including restaurants/points of interest
-      </li>
-      <li>rental search</li>
-      <li>social calendar review</li>
-      <li>schedule trainer session</li>
-      <li>trivia and bar review</li>
-    </ul>
-    <h2 class="padElement">Building Outline</h2>
-    <ul>
-      <li>custom css sheets go after bootstrap</li>
-      <li>
-        build nav bar
-        <a href="https://getbootstrap.com/docs/5.3/components/navbar/">docs</a>
-      </li>
-      <li>
-        consistent font-family: change other headers to georgia and garamond
-      </li>
-      <li>layout/categories ie notes, media, planning, going out</li>
-      <li>add household category to nav bar</li>
-    </ul>
-    <h3 class="padElement">Watching:</h3>
-    <ul>
-      <li>sherlock</li>
-      <li>the drama</li>
-      <li>shrinking</li>
-      <li>the power</li>
-    </ul>
-    <strong class="padElement">upcoming</strong>
-    trips,
-    <h4 class="padElement">Games Watch List:</h4>
-    <div class="padElement">tabletop</div>
-    <ul>
-      <li>requiem</li>
-      <li>art decko</li>
-      <li>the finest fish</li>
-      <li>garden lake</li>
-    </ul>
-    <div class="padElement">video games</div>
 
-    <ul>
-      <li>coral island</li>
-      <li>slay the spire</li>
-      <li>other games</li>
-    </ul>
+    <header class="hero" id="top">
+      <div class="container">
+        <p class="eyebrow">Business &middot; Behavior &middot; Design</p>
+        <h1>Understanding people and the systems that shape their experience</h1>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="about" class="statement">
+        <h2>About</h2>
+        <p class="lead">
+          My academic and professional interests have consistently centered on
+          understanding human behavior and the systems that shape how people
+          interact with the world around them. My undergraduate studies in
+          psychology established an interest in human behavior, which I have
+          since expanded through business education, operational experience,
+          and independent exploration of systems and product design.
+        </p>
+        <p class="lead" id="perspective">
+          I approach business as an interdisciplinary field, connecting consumer
+          behavior, organizational processes, technology, and design. My
+          developing interest in prototyping and physical product development
+          reflects this perspective: an interest in understanding how ideas
+          translate into practical solutions and how people interact with the
+          products and environments around them.
+        </p>
+      </section>
+
+      <section id="interests" class="interests">
+        <h2>Areas of Interest</h2>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="interest-card">
+              <h3>Consumer Behavior</h3>
+              <p>Grounded in a psychology background and the study of human behavior.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="interest-card">
+              <h3>Organizational Processes</h3>
+              <p>Informed by business education and hands-on operational experience.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="interest-card">
+              <h3>Technology &amp; Systems</h3>
+              <p>Independent exploration of how systems shape interaction.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="interest-card">
+              <h3>Product Design &amp; Prototyping</h3>
+              <p>Translating ideas into practical, human-centered solutions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <img src="logo.jpg" alt="Jamie Crawford" class="footer-logo" />
+        <small>&copy; 2026 Jamie Crawford</small>
+      </div>
+    </footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
