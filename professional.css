@@ -1,0 +1,118 @@
+:root {
+  --navy: #1f2d3d;
+  --slate: #44515f;
+  --accent: #2f5d8a;
+  --paper: #f7f8fa;
+  --rule: #d9dee4;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--slate);
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.site-nav {
+  background-color: #fff;
+  border-bottom: 1px solid var(--rule);
+}
+.site-nav .navbar-brand {
+  font-family: Georgia, Garamond, serif;
+  color: var(--navy);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.site-nav .nav-link {
+  color: var(--slate);
+  font-size: 0.95rem;
+}
+.site-nav .nav-link:hover {
+  color: var(--accent);
+}
+
+.hero {
+  background-color: var(--navy);
+  color: #fff;
+  padding: 5rem 0 4.5rem;
+}
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+  color: #a9bdd1;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: Georgia, Garamond, serif;
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  line-height: 1.25;
+  max-width: 22ch;
+  margin: 0;
+}
+
+h2 {
+  font-family: Georgia, Garamond, serif;
+  color: var(--navy);
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+.statement {
+  padding: 4rem 0 2rem;
+  max-width: 760px;
+}
+.statement .lead {
+  font-size: 1.15rem;
+  color: #2d3a47;
+}
+
+.interests {
+  padding: 2rem 0 4.5rem;
+}
+.interest-card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.5rem;
+  height: 100%;
+}
+.interest-card h3 {
+  font-family: Georgia, Garamond, serif;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.interest-card p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.brand-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  background: #fff;
+  padding: 2.5rem 0 2rem;
+  color: #7a8794;
+  text-align: center;
+}
+.footer-logo {
+  display: block;
+  height: 64px;
+  width: auto;
+  margin: 0 auto 1rem;
+}
